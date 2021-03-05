@@ -8,15 +8,14 @@ interface Props {
 
 function ColorBtn(props: Props) {
 
+    const colorBtnStyle: CSSProperties = {
+        backgroundColor: props.color,
+    }
+
     return(
-        <>
-        <button style={colorBtnStyle}>{props.btnColor}</button>
-        </>
+        <button style={colorBtnStyle}>{props.btnColor}</button>        
     )
 }
 
 export default ColorBtn
 
-const colorBtnStyle: CSSProperties = {
-    backgroundColor: '#FF6699',
-}
