@@ -1,52 +1,61 @@
 // import Input from "./Input";
-import { useState } from 'react';
+import {  useState } from 'react';
 
 interface Props {
     value:number
-    numberOne:number
-    numberTwo:number
+    
+}
+
+interface State {
+    numberOne: number
+    numberTwo: number
+    value: number
+    numberTotal: number
+}
+
+const randomNumber = () => {
+    const number = Math.floor(Math.random()*20+1)
+    return number
 }
 
 
-function Addition(props:Props) {
+function Addition(props:Props, state:State) {
 
-    const [value, setValue] = useState('')
-
-
-    // const inputType = 'number';
-    // const inputPlaceholder = 'Ditt svar'
+    const [value, setValue] = useState(0)
+    const [numberOne, setNumberOne] = useState(randomNumber())
+    const [numberTwo, setNumberTwo] = useState(randomNumber())
+   
 
     const handleChange = (e:any) => {
-        setValue(e.target.value)
+        Number(setValue(e.target.value))
     }
 
     const handleSubmit = (evt:any) => {
-        evt.preventDefault();
         correctAnswer(props.value)
-        alert(`jadu ${value}`)
+        evt.preventDefault();
     }
 
-    const randomNumber = () => {
-        const number = Math.floor(Math.random()*20+1)
-        return number
+    const newValues = () => {
+        setNumberOne(randomNumber())
+        setNumberTwo(randomNumber())
     }
 
-    const numberOne = randomNumber()
-    const numberTwo = randomNumber()
-
-    const numberTotal = numberOne + numberTwo
-
-    const correctAnswer = (value:number) => {
-        if( numberTotal == value) {
-            alert('nooo')
+    const correctAnswer = (props:number) => {
+        const totalValue = (numberOne + numberTwo)
+        console.log(totalValue)
+        console.log(value)
+        if( totalValue == value) {
+            newValues()
+            alert('Äntligen satt den!!!')
         } else {
             alert('yeeeeah')
+            newValues()
         }
-
     }
 
     return(
         <div className="addition">
+            
             <h2>Addition</h2>    
             <p>{numberOne} + {numberTwo}</p>
             <form onSubmit={handleSubmit}>
